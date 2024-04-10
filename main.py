@@ -22,18 +22,48 @@ def create_cra():
     print(f"Folder Path: {folder_name}")
     print(f"Project Name: {project_name}")
 
+    # RUN VITE CRA W/ TYPESCRIPT
+    project_directory = ""
+    
+    if folder_name == "coding":
+        project_directory = f"C:\\Users\\PC\\Documents\\Coding\\{project_name}"
+    elif folder_name == "frontendmentor":
+        project_directory = f"C:\\Users\\PC\\Documents\\Coding\\frontendmentor\\{project_name}"
+    else:
+        print(f"invalid directory: {project_directory}")
+        return
 
+    print(f"creating react typescript app with Vite in the following directory: {project_directory}")
+    print(f"please wait, this will take a minute")
 
+    commandCRA = ["npm", "create", "vite@latest", "app", "--", "--template", "react-ts"]    
+    subprocess.run(commandCRA, shell=True, check=True, cwd=project_directory, text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
+    print("CRA complete\n")
+
+    time.sleep(0.5)
+
+    app_directory = f"{project_directory}\\app"
+    commandModules = ["npm", "install"]
+    commandSass = ["npm", "install", "sass", "--save-dev"]
+
+    print(f"installing node modules in the following directory: {app_directory}")
+    subprocess.run(commandModules, shell=True, check=True, cwd=app_directory, text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE )
+    print("node_modules have been installed")
+
+    time.sleep(0.3)
+
+    print(f"adding sass in the following directory: {app_directory}")
+
+    subprocess.run(commandSass, shell=True, check=True, cwd=app_directory, text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE )
+
+    print("Sass has been added to the project")
+
+    time.sleep(0.3)
+
+    
     # OPEN GIT BASH
-    # Option 1: open with Popen with an assumed directly path 
-    # Path to the Git Bash executable
-    # git_bash_path = r"C:\Program Files\Git\git-bash.exe"
-
-    # # Use subprocess.Popen to open Git Bash
-    # subprocess.Popen(git_bash_path)
-
-    # Option 2: use windows search to launch it
+    
     time.sleep(2)
     pyautogui.press('win')
 
@@ -44,6 +74,7 @@ def create_cra():
     pyautogui.press('enter')
 
     # ADD CHECKER TO MAKE SURE BASH WINDOW IS STILL OPEN BEFORE CONTINUING?
+
 
 
     # NAVIGATE TO CODING FOLDER
@@ -61,55 +92,15 @@ def create_cra():
     pyautogui.typewrite(f"cd {project_name}")
     time.sleep(0.3)
     pyautogui.press('enter')
-    time.sleep(1)
-
-
-
-    # RUN CRA W/ TYPESCRIPT
-    # project_directory = ""
-
-    project_directory = ""
-    
-    if folder_name == "coding":
-        project_directory = f"C:\\Users\\PC\\Documents\\Coding\\{project_name}"
-    elif folder_name == "frontendmentor":
-        project_directory = f"C:\\Users\\PC\\Documents\\Coding\\frontendmentor\\{project_name}"
-    else:
-        print(f"invalid directory: {project_directory}")
-        return
-
-    print(f"creating react typescript app in the following directory: {project_directory}")
-    print(f"please wait, this will take a minute")
-
-
-    commandCRA = ["npx", "create-react-app", "app", "--template", "typescript"]    
-    subprocess.run(commandCRA, shell=True, check=True, cwd=project_directory, text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-
-    print("CRA complete\n")
-
     time.sleep(0.5)
 
-    commandSass = ["npm", "install", "sass", "--save-dev"]
-    app_directory = f"{project_directory}\\app"
-
-    print(f"adding sass in the following directory: {app_directory}")
-
-    subprocess.run(commandSass, shell=True, check=True, cwd=app_directory, text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE )
-
-    print("Sass has been added to the project")
-
-    
-
     # GET INTO APP FOLDER AND SRC FOLDER AND DELETE USELESS FILES
-
-
-
 
     pyautogui.typewrite("cd app/src")
     time.sleep(0.5)
     pyautogui.press("enter")
     time.sleep(0.5)
-    pyautogui.typewrite("rm App.css App.test.tsx index.css logo.svg react-app-env.d.ts reportWebVitals.ts setupTests.ts")
+    pyautogui.typewrite("rm App.css index.css ./assets/react.svg")
     time.sleep(0.5)
     pyautogui.press("enter")
     time.sleep(2)
@@ -121,11 +112,11 @@ def create_cra():
     pyautogui.press('enter')
 
     # The content of your TypeScript file
-    ts_content = """import React from "react";\n
-import "./cssReset.scss";\n
-export function App() {
+    ts_content = """import "./cssReset.scss";\n
+function App() {
     return <div>clean cra</div>;
-};
+};\n
+export default App
 """
 
     # Write the TypeScript content line by line
@@ -140,19 +131,15 @@ export function App() {
     ############
     time.sleep(1)
 
-    pyautogui.write('cat <<EOF > index.tsx', interval=typingSpeed)
+    pyautogui.write('cat <<EOF > main.tsx', interval=typingSpeed)
     pyautogui.press('enter')
 
     # The content of your TypeScript file
-    ts_content ="""import React from "react";
-import ReactDOM from "react-dom/client";
+    ts_content ="""import ReactDOM from "react-dom/client";
 
-import { App } from "./App";
+import App from "./App";
 
-const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
-);
-root.render(<App />);
+ReactDOM.createRoot(document.getElementById("root")!).render(<App />);
 """
 
     # Write the TypeScript content line by line
@@ -249,7 +236,7 @@ declare module "*.webp";
     time.sleep(0.5)
     pyautogui.press("enter")
     time.sleep(1)
-    pyautogui.typewrite("npm start")
+    pyautogui.typewrite("npm run dev")
     time.sleep(1)
     pyautogui.press("enter")
 
