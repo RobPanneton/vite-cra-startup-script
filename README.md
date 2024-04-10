@@ -1,0 +1,1 @@
+# vite-cra-startup-script
