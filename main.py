@@ -28,7 +28,7 @@ def create_cra():
     if folder_name == "coding":
         project_directory = f"C:\\Users\\PC\\Documents\\Coding\\{project_name}"
     elif folder_name == "frontendmentor":
-        project_directory = f"C:\\Users\\PC\\Documents\\Coding\\frontendmentor\\{project_name}"
+        project_directory = f"C:\\Users\\PC\\Documents\\Coding\\frontendmentor\\{project_name}\\{project_name}-frontendmentor"
     else:
         print(f"invalid directory: {project_directory}")
         return
@@ -77,22 +77,17 @@ def create_cra():
 
 
 
-    # NAVIGATE TO CODING FOLDER
+    # NAVIGATE TO PROJECT FOLDER
     time.sleep(2)
     if folder_name == "coding":
-        pyautogui.typewrite("cd documents/coding")
+        pyautogui.typewrite(f"cd documents/coding/{project_name}")
 
     if folder_name == "frontendmentor":
-        pyautogui.typewrite("cd documents/coding/frontendmentor")
+        pyautogui.typewrite(f"cd documents/coding/frontendmentor/{project_name}/{project_name}-frontendmentor")
 
     time.sleep(0.3)
     pyautogui.press('enter')
 
-    # NAVIGATE TO PROJECT FOLDER
-    pyautogui.typewrite(f"cd {project_name}")
-    time.sleep(0.3)
-    pyautogui.press('enter')
-    time.sleep(0.5)
 
     # GET INTO APP FOLDER AND SRC FOLDER AND DELETE USELESS FILES
 
