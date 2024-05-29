@@ -108,7 +108,7 @@ def create_cra():
 
     # The content of your TypeScript file
     ts_content = """import "./cssReset.scss";\n
-function App() {
+const App = () => {
     return <div>clean cra</div>;
 };\n
 export default App
